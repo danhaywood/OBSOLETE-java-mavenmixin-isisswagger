@@ -3,7 +3,7 @@
 :toc:
 
 
-This module, for use within link:http://isis.apache.org[Apache Isis] applications, provides a link:https://github.com/odavid/maven-plugins[maven mixin] that can be used to run the `swagger` goal of the link:http://isis.apache.org/guides/rgmvn.html[Apache Isis maven plugin] for a domain object model.
+This module, for use within link:http://isis.apache.org[Apache Isis] applications, provides a link:https://github.com/odavid/maven-plugins[maven mixin] that can be used to run the `swagger` goal of the link:http://isis.apache.org/guides/rgmvn.html[Apache Isis maven plugin] for a domain object model (to generate link:http://swagger.io/[swagger] definition files).
 This reduces the size of the maven `pom.xml` file for that consuming module; it simply needs to reference _this_ module using the `mixin-maven-plugin`.
 
 The appropriate configuration is included in a `<profile>` which is automatically included in all builds.
@@ -12,7 +12,7 @@ This profile can be disabled using a Maven property.
 
 == Input Properties
 
-The plugin requires two properties:
+The plugin requires three properties:
 
 [source,xml]
 ----
@@ -21,18 +21,23 @@ The plugin requires two properties:
     <danhaywood-mavenmixin-isisswagger.appManifest>                     <!--2-->
         domainapp.application.manifest.DomainAppAppManifest
     </danhaywood-mavenmixin-isisswagger.appManifest>
+	<danhaywood-mavenmixin-isisswagger.format>                          <!--3-->
+	    JSON
+    </danhaywood-mavenmixin-isisswagger.format>
 </properties>
 ----
 <1> the version of Apache Isis
 <2> the fully qualified class name of the `AppManifest` that references the module(s) to validate.
+<3> (optional) the format of the generated files, either `JSON` or `YAML`.
+    If not specified, then the default is `JSON`.
 
 These properties should be specified in the consuming module.
 
 
 
-== How to Configure/Use
+== How to Configure
 
-To use:
+To configure:
 
 * add the following to the `pom.xml` of the `webapp` module: +
 +
@@ -68,6 +73,20 @@ To disable the (profile contributed by this) mixin, pass the following system pr
 ----
 mvn -Dskip.danhaywood-mavenmixin-isisswagger
 ----
+
+
+== How to Use
+
+
+The plugin is bound to Maven's `package` phase:
+
+[source,bash]
+----
+mvn package
+----
+
+This will generate Swagger definition files in the `target/generated-resources/isis-swagger` directory.
+These can then be used in turn link:http://swagger.io/swagger-codegen/[generate client-side stubs] against the REST API provided by the link:http://isis.apache.org/guides/ugvro.html[Restful Objects viewer]
 
 
 

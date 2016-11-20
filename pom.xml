@@ -7,7 +7,7 @@
     
     <groupId>com.danhaywood.mavenmixin</groupId>
     <artifactId>isisswagger</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     
@@ -42,6 +42,9 @@
         <danhaywood-mavenmixin-isisswagger.appManifest>
 		    domainapp.application.manifest.DomainAppAppManifest
 		</danhaywood-mavenmixin-isisswagger.appManifest>
+		<danhaywood-mavenmixin-isisswagger.format>
+		    JSON
+		</danhaywood-mavenmixin-isisswagger.format>
     </properties>
         
     <profiles>
@@ -64,7 +67,7 @@
                                 <visibility>PUBLIC</visibility>
                                 <visibility>PRIVATE</visibility>
                             </visibilities>
-                            <format>JSON</format>
+                            <format>${danhaywood-mavenmixin-isisswagger.format}</format>
                             <fileNamePrefix>swagger</fileNamePrefix>
                         </configuration>
                         <dependencies>

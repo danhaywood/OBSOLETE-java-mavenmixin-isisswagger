@@ -21,7 +21,7 @@ The plugin requires three properties:
     <danhaywood-mavenmixin-isisswagger.appManifest>                     <!--2-->
         domainapp.application.manifest.DomainAppAppManifest
     </danhaywood-mavenmixin-isisswagger.appManifest>
-	<danhaywood-mavenmixin-isisswagger.format>                          <!--3-->
+    <danhaywood-mavenmixin-isisswagger.format>                          <!--3-->
 	    JSON
     </danhaywood-mavenmixin-isisswagger.format>
 </properties>

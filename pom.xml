@@ -42,6 +42,12 @@
         <danhaywood-mavenmixin-isisswagger.appManifest>
 		    domainapp.application.manifest.DomainAppAppManifest
 		</danhaywood-mavenmixin-isisswagger.appManifest>
+        <danhaywood-mavenmixin-isisswagger.dependency.groupId>
+		    ${project.groupId}
+		</danhaywood-mavenmixin-isisswagger.dependency.groupId>
+        <danhaywood-mavenmixin-isisswagger.dependency.artifactId>
+		    simpleapp-application
+		</danhaywood-mavenmixin-isisswagger.dependency.artifactId>
 		<danhaywood-mavenmixin-isisswagger.format>
 		    JSON
 		</danhaywood-mavenmixin-isisswagger.format>
@@ -62,7 +68,7 @@
                         <artifactId>isis-maven-plugin</artifactId>
                         <version>${isis.version}</version>
                         <configuration>
-                            <appManifest>domainapp.application.manifest.DomainAppAppManifest</appManifest>
+                            <appManifest>${danhaywood-mavenmixin-isisswagger.appManifest}</appManifest>
                             <visibilities>
                                 <visibility>PUBLIC</visibility>
                                 <visibility>PRIVATE</visibility>
@@ -72,8 +78,8 @@
                         </configuration>
                         <dependencies>
                             <dependency>
-                                <groupId>${project.groupId}</groupId>
-                                <artifactId>simpleapp-application</artifactId>
+                                <groupId>${danhaywood-mavenmixin-isisswagger.dependency.groupId}</groupId>
+                                <artifactId>${danhaywood-mavenmixin-isisswagger.dependency.artifactId}</artifactId>
                                 <version>${project.version}</version>
                             </dependency>
                             <!--

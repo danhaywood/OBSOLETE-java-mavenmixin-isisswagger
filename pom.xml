@@ -49,10 +49,10 @@
             <properties>
                 <isis-maven-plugin.version>1.13.1</isis-maven-plugin.version>
 
-                <isis-maven-plugin.appManifest>domainapp.application.manifest.DomainAppAppManifest</isis-maven-plugin.appManifest>
-                <isis-maven-plugin.dependency.groupId>${project.groupId}</isis-maven-plugin.dependency.groupId>
-                <isis-maven-plugin.dependency.artifactId>simpleapp-application</isis-maven-plugin.dependency.artifactId>
-                <isis-maven-plugin.format>JSON</isis-maven-plugin.format>
+                <isis-maven-plugin.swagger.appManifest>domainapp.application.manifest.DomainAppAppManifest</isis-maven-plugin.swagger.appManifest>
+                <isis-maven-plugin.swagger.dependency.groupId>${project.groupId}</isis-maven-plugin.swagger.dependency.groupId>
+                <isis-maven-plugin.swagger.dependency.artifactId>simpleapp-application</isis-maven-plugin.swagger.dependency.artifactId>
+                <isis-maven-plugin.swagger.format>JSON</isis-maven-plugin.swagger.format>
             </properties>
                 
 
@@ -63,7 +63,7 @@
                         <artifactId>isis-maven-plugin</artifactId>
                         <version>${isis-maven-plugin.version}</version>
                         <configuration>
-                            <appManifest>${isis-maven-plugin.appManifest}</appManifest>
+                            <appManifest>${isis-maven-plugin.swagger.appManifest}</appManifest>
                             <visibilities>
                                 <visibility>PUBLIC</visibility>
                                 <visibility>PRIVATE</visibility>
@@ -73,8 +73,8 @@
                         </configuration>
                         <dependencies>
                             <dependency>
-                                <groupId>${isis-maven-plugin.dependency.groupId}</groupId>
-                                <artifactId>${isis-maven-plugin.dependency.artifactId}</artifactId>
+                                <groupId>${isis-maven-plugin.swagger.dependency.groupId}</groupId>
+                                <artifactId>${isis-maven-plugin.swagger.dependency.artifactId}</artifactId>
                                 <version>${project.version}</version>
                             </dependency>
                             <!--

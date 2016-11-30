@@ -54,18 +54,18 @@ and: +
 ----
 <properties>
     ...
-    <isis-maven-plugin.appManifest>                             <!--1-->
+    <isis-maven-plugin.swagger.appManifest>                             <!--1-->
         domainapp.application.manifest.DomainAppAppManifest
-    </isis-maven-plugin.appManifest>
-    <isis-maven-plugin.dependency.groupId>                      <!--2-->
+    </isis-maven-plugin.swagger.appManifest>
+    <isis-maven-plugin.swagger.dependency.groupId>                      <!--2-->
         ${project.groupId}
-    </isis-maven-plugin.dependency.groupId>
-    <isis-maven-plugin.dependency.artifactId>                   <!--3-->
+    </isis-maven-plugin.swagger.dependency.groupId>
+    <isis-maven-plugin.swagger.dependency.artifactId>                   <!--3-->
         simpleapp-application
-    </isis-maven-plugin.dependency.artifactId>                 
-    <isis-maven-plugin.format>                                  <!--4-->
+    </isis-maven-plugin.swagger.dependency.artifactId>                 
+    <isis-maven-plugin.swagger.format>                                  <!--4-->
         JSON
-    </isis-maven-plugin.format>
+    </isis-maven-plugin.swagger.format>
     ...
 </properties>
 ----

@@ -10,47 +10,75 @@ The appropriate configuration is included in a `<profile>` which is automaticall
 This profile can be disabled using a Maven property.
 
 
-== Input Properties
-
-The plugin accepts five properties, of which three are required:
-
-[source,xml]
-----
-<properties>
-    <isis.version>1.13.1</isis.version>                                 <!--1-->	
-    <danhaywood-mavenmixin-isisswagger.appManifest>                     <!--2-->
-        domainapp.application.manifest.DomainAppAppManifest
-    </danhaywood-mavenmixin-isisswagger.appManifest>
-    <danhaywood-mavenmixin-isisswagger.dependency.groupId>              <!--3-->
-	    ${project.groupId}
-	</danhaywood-mavenmixin-isisswagger.dependency.groupId>
-    <danhaywood-mavenmixin-isisswagger.dependency.artifactId>           <!--4-->
-	    simpleapp-application
-	</danhaywood-mavenmixin-isisswagger.dependency.artifactId>
-    <danhaywood-mavenmixin-isisswagger.format>                          <!--5-->
-        JSON
-    </danhaywood-mavenmixin-isisswagger.format>
-</properties>
-----
-<1> the version of Apache Isis
-<2> the fully qualified class name of the `AppManifest` that references the module(s) to validate.
-    The default relates to that of the simpleapp example application, which will almost certainly require changing.
-<3> (optional) the `groupId` of the dependency containing the `AppManifest` specified above.
-    Defaults to `${project.groupId}`, which in most cases will be correct
-<4> the `artifactId` of the dependency containing the `AppManifest` specified above.
-    The default relates to that of the simpleapp example application, which will almost certainly require changing.
-<5> (optional) the format of the generated files, either `JSON` or `YAML`.
-    If not specified, then the default is `JSON`.
-
-These properties should be specified in the consuming module.
-
 
 
 == How to Configure
 
 To configure:
 
-* add the following to the `pom.xml` of the `webapp` module: +
+* copy and paste the following into either the `pom.xml` of the consuming module or (better still) the `pom.xml` of the top-level parent of the consuming module: +
++
+[source,xml]
+----
+<properties>
+    ...
+    <mavenmixin-isisswagger.version>0.0.3</mavenmixin-isisswagger.version>
+
+    <isis-maven-plugin.version>1.13.1</isis-maven-plugin.version>
+    ...
+</properties>
+----
++
+and: +
++
+[source,xml]
+----
+<build>
+    <pluginManagement>
+        <plugins>
+            ...
+            <plugin>
+                <groupId>org.apache.isis.tool</groupId>
+                <artifactId>isis-maven-plugin</artifactId>
+                <version>${isis-maven-plugin.version}</version>
+            </plugin>
+            ...
+        </plugins>
+    </pluginManagement>
+</build>
+----
+
+* update the following property/ies in the `pom.xml` of the consuming `webapp` module: +
++
+[source,xml]
+----
+<properties>
+    ...
+    <isis-maven-plugin.appManifest>                             <!--1-->
+        domainapp.application.manifest.DomainAppAppManifest
+    </isis-maven-plugin.appManifest>
+    <isis-maven-plugin.dependency.groupId>                      <!--2-->
+        ${project.groupId}
+    </isis-maven-plugin.dependency.groupId>
+    <isis-maven-plugin.dependency.artifactId>                   <!--3-->
+        simpleapp-application
+    </isis-maven-plugin.dependency.artifactId>                 
+    <isis-maven-plugin.format>                                  <!--4-->
+        JSON
+    </isis-maven-plugin.format>
+    ...
+</properties>
+----
+<1> the fully qualified class name of the `AppManifest` that references the module(s) to validate.
+    The default relates to that of the simpleapp example application, which will almost certainly require changing.
+<2> (optional) the `groupId` of the dependency containing the `AppManifest` specified above.
+    Defaults to `${project.groupId}`, which in most cases will be correct
+<3> the `artifactId` of the dependency containing the `AppManifest` specified above.
+    The default relates to that of the simpleapp example application, which will almost certainly require changing.
+<4> (optional) the format of the generated files, either `JSON` or `YAML`.
+    If not specified, then the default is `JSON`.
+
+* add the following to the `pom.xml` of the consuming module: +
 +
 [source,xml]
 ----
@@ -66,7 +94,7 @@ To configure:
                     <mixin>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>isisswagger</artifactId>
-                        <version>0.0.2</version>
+                        <version>${mavenmixin-isisswagger.version}</version>
                     </mixin>
                 </mixins>
             </configuration>
@@ -82,7 +110,7 @@ To disable the (profile contributed by this) mixin, pass the following system pr
 
 [source,bash]
 ----
-mvn -Dskip.danhaywood-mavenmixin-isisswagger
+mvn -Dskip.mavenmixin-isisswagger
 ----
 
 
@@ -109,6 +137,7 @@ None currently
 
 == Change Log
 
+* `0.0.3` - updates README for properties and plugin management, shortens property names and profile id
 * `0.0.2` - defines the `groupId` and `artifactId` properties to specify the dependency containing the app manifest.
    Also, the appManifest property wasn't actually being used.
 * `0.0.1` - first release; released for Apache Isis 1.13.1
@@ -164,8 +193,8 @@ For example:
 
 [source]
 ----
-sh release.sh 0.0.2 \
-              0.0.3-SNAPSHOT \
+sh release.sh 0.0.3 \
+              0.0.4-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -185,7 +214,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 0.0.2
+git push origin 0.0.3
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.

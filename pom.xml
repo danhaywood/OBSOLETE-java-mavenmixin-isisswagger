@@ -37,49 +37,44 @@
         </developer>
     </developers>    
 
-    <properties>
-        <isis.version>1.13.1</isis.version>
-        <danhaywood-mavenmixin-isisswagger.appManifest>
-		    domainapp.application.manifest.DomainAppAppManifest
-		</danhaywood-mavenmixin-isisswagger.appManifest>
-        <danhaywood-mavenmixin-isisswagger.dependency.groupId>
-		    ${project.groupId}
-		</danhaywood-mavenmixin-isisswagger.dependency.groupId>
-        <danhaywood-mavenmixin-isisswagger.dependency.artifactId>
-		    simpleapp-application
-		</danhaywood-mavenmixin-isisswagger.dependency.artifactId>
-		<danhaywood-mavenmixin-isisswagger.format>
-		    JSON
-		</danhaywood-mavenmixin-isisswagger.format>
-    </properties>
-        
     <profiles>
         <profile>
-            <id>danhaywood-mavenmixin-isisswagger</id>
+            <id>mavenmixin-isisswagger</id>
             <activation>
                 <property>
-                    <name>!skip.danhaywood-mavenmixin-isisswagger</name>
+                    <name>!skip.mavenmixin-isisswagger</name>
                 </property>
             </activation>
+
+            <properties>
+                <isis-maven-plugin.version>1.13.1</isis-maven-plugin.version>
+
+                <isis-maven-plugin.appManifest>domainapp.application.manifest.DomainAppAppManifest</isis-maven-plugin.appManifest>
+                <isis-maven-plugin.dependency.groupId>${project.groupId}</isis-maven-plugin.dependency.groupId>
+                <isis-maven-plugin.dependency.artifactId>simpleapp-application</isis-maven-plugin.dependency.artifactId>
+                <isis-maven-plugin.format>JSON</isis-maven-plugin.format>
+            </properties>
+                
+
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.isis.tool</groupId>
                         <artifactId>isis-maven-plugin</artifactId>
-                        <version>${isis.version}</version>
+                        <version>${isis-maven-plugin.version}</version>
                         <configuration>
-                            <appManifest>${danhaywood-mavenmixin-isisswagger.appManifest}</appManifest>
+                            <appManifest>${isis-maven-plugin.appManifest}</appManifest>
                             <visibilities>
                                 <visibility>PUBLIC</visibility>
                                 <visibility>PRIVATE</visibility>
                             </visibilities>
-                            <format>${danhaywood-mavenmixin-isisswagger.format}</format>
+                            <format>${isis-maven-plugin.format}</format>
                             <fileNamePrefix>swagger</fileNamePrefix>
                         </configuration>
                         <dependencies>
                             <dependency>
-                                <groupId>${danhaywood-mavenmixin-isisswagger.dependency.groupId}</groupId>
-                                <artifactId>${danhaywood-mavenmixin-isisswagger.dependency.artifactId}</artifactId>
+                                <groupId>${isis-maven-plugin.dependency.groupId}</groupId>
+                                <artifactId>${isis-maven-plugin.dependency.artifactId}</artifactId>
                                 <version>${project.version}</version>
                             </dependency>
                             <!--
